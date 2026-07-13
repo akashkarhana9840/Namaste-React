@@ -3,20 +3,21 @@ import { useEffect, useState } from "react";
 import ShimmerUi from "./shimmerUi";
 const Body = () => {
   const [Restarauntlist, setRestarauntlist] = useState([]);
+  const [FilteredRes, setFilteredRes] = useState([]);
   const [Searched, setSearched] = useState("");
 
   useEffect(() => {
     fetchData();
   }, []);
   const fetchData = async () => {
-    const data = await fetch(
+    const data = await fetch( 
       "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7041&lng=77.1025&page_type=DESKTOP_WEB_LISTING",
     );
     const json = await data.json();
-    console.log(
+    setRestarauntlist(
       json.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants,
     );
-    setRestarauntlist(
+    setFilteredRes(
       json.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants,
     ); // optional chaining
   };
@@ -34,20 +35,25 @@ const Body = () => {
               setSearched(e.target.value);
             }}
           />
-            <button onClick={() => {
-             const filteredRes= Restarauntlist.filter((res) => {
-                return res.info.name.toLowerCase().includes(Searched.toLowerCase())
-             }
-              )
-              setRestarauntlist(filteredRes)
-          }}>search</button>
+          <button
+            onClick={() => {
+              const filtered = Restarauntlist.filter((res) => {
+                return res.info.name
+                  .toLowerCase()
+                  .includes(Searched.toLowerCase());
+              });
+              setFilteredRes(filtered);
+            }}
+          >
+            search
+          </button>
         </div>
         <button
           onClick={() => {
             // Logic for searching 4+ star restaurants
-            setRestarauntlist(
+            setFilteredRes(
               Restarauntlist.filter(
-                (restaraunt) => restaraunt.info.avgRating > 4.5,
+                (restaraunt) => restaraunt.info.avgRating > 3.9,
               ),
             );
           }}
@@ -56,7 +62,7 @@ const Body = () => {
         </button>
       </div>
       <div className=" res-container">
-        {Restarauntlist.map((restaraunt) => {
+        {FilteredRes.map((restaraunt) => {
           return (
             <RestarauntCard key={restaraunt.info.id} resData={restaraunt} />
           );
