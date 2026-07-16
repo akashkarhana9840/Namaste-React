@@ -1,6 +1,7 @@
 import RestarauntCard from "./RestarauntCard";
 import { useEffect, useState } from "react";
 import ShimmerUi from "./shimmerUi";
+import { api } from "../utils/Constants";
 const Body = () => {
   const [Restarauntlist, setRestarauntlist] = useState([]);
   const [FilteredRes, setFilteredRes] = useState([]);
@@ -10,8 +11,7 @@ const Body = () => {
     fetchData();
   }, []);
   const fetchData = async () => {
-    const data = await fetch( 
-      "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7041&lng=77.1025&page_type=DESKTOP_WEB_LISTING",
+    const data = await fetch( api
     );
     const json = await data.json();
     setRestarauntlist(
