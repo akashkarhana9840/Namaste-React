@@ -15,7 +15,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html --port 1234"
   },
   "devDependencies": {
     "parcel": "^2.16.4"
