@@ -51,3 +51,7 @@ justify-content:space-evenly;
         display: flex;
         gap: 10px;
     }
+    .user-card{
+        padding: 25px;
+        border: 2px solid black;
+    }
