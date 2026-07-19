@@ -20,7 +20,6 @@ class Contact extends Component{
         <h2>my email is{email} </h2>
         <button>click to Contact</button>
         <UserClass name="first(class)" location={"London"} />
-        <UserClass name="Second(class)" location={"US"} />
       </div>
     );
   }
